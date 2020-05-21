@@ -59,6 +59,7 @@
 #define AS_STRING(v)        ((ObjString*)AS_OBJ(v))             // ObjString*
 #define AS_CSTRING(v)       (AS_STRING(v)->value)               // const char*
 
+#define AS_FNFOREIGN(v)    ((FnForeign)(((v) & (~(QNAN | TAG_FNFOREIGN))) >> 3 ))  // FnForeign
 // These macros promote a primitive C value to a full Wren Value. There are
 // more defined below that are specific to the Nan tagged or other
 // representation.
@@ -66,6 +67,7 @@
 #define NUM_VAL(num) (wrenNumToValue(num))                      // double
 #define OBJ_VAL(obj) (wrenObjectToValue((Obj*)(obj)))           // Any Obj___*
 
+#define FNFOREIGN_VAL(ffn)  ((Value)(uint64_t)(QNAN | TAG_FNFOREIGN | ((uint64_t)(ffn) << 3)))
 // These perform type tests on a Value, returning `true` if the Value is of the
 // given type.
 #define IS_BOOL(value) (wrenIsBool(value))                      // Bool
@@ -557,7 +559,7 @@ typedef struct
 #define IS_FALSE(value)     ((value) == FALSE_VAL)
 #define IS_NULL(value)      ((value) == NULL_VAL)
 #define IS_UNDEFINED(value) ((value) == UNDEFINED_VAL)
-
+#define IS_FNFOREIGN(value) (((value) & (QNAN | TAG_FNFOREIGN)) == (QNAN | TAG_FNFOREIGN))
 // Masks out the tag bits used to identify the singleton value.
 #define MASK_TAG (7)
 
