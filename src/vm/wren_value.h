@@ -128,6 +128,7 @@ typedef enum
   VAL_NULL,
   VAL_NUM,
   VAL_TRUE,
+  VAL_FNFOREIN,
   VAL_UNDEFINED,
   VAL_OBJ
 } ValueType;
@@ -565,8 +566,8 @@ typedef struct
 #define TAG_NULL      (1)
 #define TAG_FALSE     (2)
 #define TAG_TRUE      (3)
-#define TAG_UNDEFINED (4)
-#define TAG_UNUSED2   (5)
+#define TAG_FNFOREIGN (4)
+#define TAG_UNDEFINED   (5)
 #define TAG_UNUSED3   (6)
 #define TAG_UNUSED4   (7)
 
@@ -580,6 +581,7 @@ typedef struct
 #define NULL_VAL      ((Value)(uint64_t)(QNAN | TAG_NULL))
 #define FALSE_VAL     ((Value)(uint64_t)(QNAN | TAG_FALSE))
 #define TRUE_VAL      ((Value)(uint64_t)(QNAN | TAG_TRUE))
+#define FNFOREIGN_VAL      ((Value)(uint64_t)(QNAN | TAG_FNFOREIGN))
 #define UNDEFINED_VAL ((Value)(uint64_t)(QNAN | TAG_UNDEFINED))
 
 // Gets the singleton type tag for a Value (which must be a singleton).
